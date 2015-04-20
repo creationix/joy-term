@@ -87,7 +87,7 @@ repeat
 
   tb.tb_present()
 
-  tb.tb_peek_event(event, 50)
+  tb.tb_peek_event(event, 100)
 until event.key == 27 and event.type == 1
 
 tb.tb_shutdown()

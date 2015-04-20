@@ -62,10 +62,8 @@ tb.tb_init()
 tb.tb_select_output_mode(tb.TB_OUTPUT_256)
 local w, h = tb.tb_width(), tb.tb_height()
 
-local hw = w / 2
-local hh = h / 2
-local r = math.min(w, h) / 2
-local r2 = r * 1.8
+local fx = 360 / (w - 1)
+local fy = 360 / (h - 1)
 
 local o = 0
 local event = ffi.new("struct tb_event")
@@ -77,11 +75,7 @@ repeat
 
   for y = 0, h - 1 do
     for x = 0, w - 1 do
-      local X = (x - hw) / r2
-      local Y = (y - hh) / r
-      local a = math.atan2(X, Y) / math.pi  * 180
-      local d = 360 - math.sqrt(X * X + Y * Y) * 360
-      tb.tb_change_cell(x, y, 0, 0, wheel(a + o, d))
+      tb.tb_change_cell(x, y, 0, 0, wheel(x * fx + o, y * fy))
     end
   end
 
